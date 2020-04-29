@@ -1,18 +1,21 @@
-TARGETS = $(shell find . -name "Makefile" ! -path ./Makefile -exec dirname {} \;;)
+### Globals
+PRJDIR			= ${CURDIR}
+OUTDIR			= ${CURDIR}/build_results
 
-export PRJDIR = $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-export OUTDIR = $(PRJDIR)build_results
-export RELEASE = $(OUTDIR)/release
+### Build flags for all targets
+#
+CF_ALL          = -g -Wall
+LF_ALL          = 
+LL_ALL          =
 
-.PHONY: all outdir $(TARGETS) $(addsuffix, / $(TARGETS))
+### Build tools
+# 
+CC              = gcc
+INST			= ./build/install
+COMP            = mkdir -p $$(dirname $@); $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
+LINK            = mkdir -p $$(dirname $@); $(CC) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_TGT) $(LL_ALL)
+COMPLINK        = mkdir -p $$(dirname $@); $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
 
-all: prebuild $(TARGETS)
-
-prebuild:
-	mkdir -p $(OUTDIR) $(RELEASE)
-
-$(TARGETS) $(addsuffix, / $(TARGETS)):
-	$(MAKE) --directory=$@
-
-clean:
-	rm -rf $(OUTDIR)
+### Standard parts
+#
+include Rules.mk
