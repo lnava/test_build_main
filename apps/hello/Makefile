@@ -22,8 +22,6 @@ $(APPOUT): $(OBJS)
 	mkdir -p $(EXEDIR)
 	$(CC) $(OBJS) -o $(APPOUT)
 
-$(APP): $(APPOUT)
-
 $(OBJDIR)%.o: $(PRJDIR)%.c
 $(OBJDIR)%.o: $(PRJDIR)%.c $(DEPDIR)%.d
 	mkdir -p $(dir $@)
