@@ -1,20 +1,20 @@
 ### Globals
-PRJDIR			= ${CURDIR}
-OUTDIR			= ${CURDIR}/build_results
+PRJDIR			:= $(dir  $(abspath $(lastword $(MAKEFILE_LIST))))
+OUTDIR			:= $(PRJDIR)build_results
 
 ### Build flags for all targets
 #
-CF_ALL          = -g -Wall
-LF_ALL          = 
-LL_ALL          =
+CFLAGS_ALL	= -g -Wall
+LFLAGS_ALL	= 
+LIBS_ALL	=
 
 ### Build tools
 # 
-CC              = gcc
-INST			= ./build/install
-COMP            = mkdir -p $$(dirname $@); $(CC) $(CF_ALL) $(CF_TGT) -o $@ -c $<
-LINK            = mkdir -p $$(dirname $@); $(CC) $(LF_ALL) $(LF_TGT) -o $@ $^ $(LL_TGT) $(LL_ALL)
-COMPLINK        = mkdir -p $$(dirname $@); $(CC) $(CF_ALL) $(CF_TGT) $(LF_ALL) $(LF_TGT) -o $@ $< $(LL_TGT) $(LL_ALL)
+CC		= gcc
+CXX		= g++
+COMP	= $(CC) $(CFLAGS_ALL) $(CFLAGS_TGT) -o $@ -c $<
+LINK	= $(CC) $(LFLAGS_ALL) $(LFLAGS_TGT) -o $@ $(OBJS_$(d)) $(LIBS_TGT) $(LIBS_ALL)
+SOLINK	= $(CC) $(LFLAGS_ALL) $(LFLAGS_TGT) -shared -lfPIC -o $@ $(OBJS_$(d)) $(LIBS_TGT) $(LIBS_ALL)
 
 ### Standard parts
 #
