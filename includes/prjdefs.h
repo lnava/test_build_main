@@ -1,2 +1,2 @@
 #pragma once
-#define HELLO_STR "Hello World"
+#define HELLO_STR "Hello New World"
