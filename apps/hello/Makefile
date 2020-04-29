@@ -1,17 +1,20 @@
 ### User defined variables
 APP := hello
-C_SRCS := hello.c
-INC_DIRS := includes
+C_SRCS 		:= hello.c
+EC_SRCS 	:=
+INC_DIRS	:=
+EINC_DIRS 	:= includes libs/hello_lib/incs
 
 ### Auto formatting variables for building
 OBJDIR 	:= $(OUTDIR)/$(APP)/obj/
 EXEDIR 	:= $(OUTDIR)/$(APP)/exe/
 DEPDIR	:= $(OUTDIR)/$(APP)/deps/
 APPOUT 	:= $(EXEDIR)$(APP)
-SRCS 	:= $(addprefix ${CURDIR}/, $(C_SRCS))
+SRCS 	:= $(addprefix ${CURDIR}/, $(C_SRCS)) $(addprefix $(PRJDIR), $(EC_SRCS))
 OBJS 	:= $(SRCS:$(PRJDIR)%.c=$(OBJDIR)%.o)
-INC_DIRS:= $(addprefix $(PRJDIR), $(INC_DIRS))
-INCLUDES:= $(addprefix -I, $(INC_DIRS))
+INC_DIRS    := $(addprefix ${CURDIR}/, $(INC_DIRS))
+EINC_DIRS   := $(addprefix $(PRJDIR), $(EINC_DIRS))
+INCLUDES    := $(addprefix -I, $(INC_DIRS) $(EINC_DIRS))
 
 ### Build Flags
 DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)$*.d
