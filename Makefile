@@ -4,7 +4,8 @@ OUTDIR			:= $(PRJDIR)build_results
 
 ### Build flags for all targets
 #
-CFLAGS_ALL	= -g -Wall
+DEPFLAGS	= -MT $@ -MMD -MP -MF $(DEPDIR_$(d))/$*.d
+CFLAGS_ALL	= -g -Wall $(DEPFLAGS)
 LFLAGS_ALL	= 
 LIBS_ALL	=
 

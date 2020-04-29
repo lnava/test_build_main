@@ -10,6 +10,7 @@ clean:
 	rm -rf $(OUTDIR)
 
 $(OBJDIR_$(d))/%.o: $(PRJDIR)%.c
+$(OBJDIR_$(d))/%.o: $(PRJDIR)%.c $(DEPDIR_$(d))/%.d | $(DEPDIR_$(d))
 	mkdir -p $(dir $@)
 	$(COMP)
 
@@ -17,6 +18,9 @@ $(OBJDIR_$(d))/%.o: $(PRJDIR)%.c
 	mkdir -p $(dir $@)
 	$(SOLINK)
 
-%:
-	mkdir -p $(dir $@)
-	$(LINK)
+%Rules.mk:
+	echo "Rules.mk was updated. Rebuilding..."
+
+$(DEPDIR_$(d)):
+	    mkdir -p $(DEPDIR_$(d))
+		$(foreach DEP, $(DEPS_$(d)), mkdir -p $(dir $(DEP)))
