@@ -1,7 +1,7 @@
 #include <stdio.h>
-#include "prjdefs.h"
+#include "hello_lib.h"
 
 void main()
 {
-    printf(HELLO_STR"\n");
+    print_hello();
 }

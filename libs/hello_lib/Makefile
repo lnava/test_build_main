@@ -4,6 +4,8 @@ C_SRCS 		:= hello_lib.c
 EC_SRCS		:=
 INC_DIRS 	:= incs
 EINC_DIRS 	:= includes
+LDFLAGS		:=
+PRJDEPS		:=
 
 ### Auto formatting variables for building
 OBJDIR 		:= $(OUTDIR)/$(LIB)/obj/
@@ -23,7 +25,8 @@ DEPFLAGS = -MT $@ -MMD -MP -MF $(DEPDIR)$*.d
 .PHONY: $(LIB)
 $(LIBOUT): $(OBJS)
 	mkdir -p $(LIBDIR)
-	$(CC) $(OBJS) -shared -fPIC -o $(LIBOUT)
+	$(CC) $(OBJS) -shared -fPIC $(LDFLAGS) -o $(LIBOUT)
+	cp $(LIBOUT) $(RELEASE)
 
 $(OBJDIR)%.o: $(PRJDIR)%.c
 $(OBJDIR)%.o: $(PRJDIR)%.c $(DEPDIR)%.d
